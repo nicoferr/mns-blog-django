@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        .error {
+            background-color: red;
+        }
+
+        .success {
+            background-color: green;
+        }
+
+        .info {
+            background-color: blue;
+        }
+
+        .warning {
+            background-color: orange;
+        }
+    </style>
+</head>
+<body>
+    {% if messages %}
+        {% for message in messages %}
+        <p class="{{message.tags}}" style="color: white; padding: 5px; border-radius: 5px;">{{ message }}</p>
+        {% endfor %}
+    {% endif%}
+
+    {% if user.is_authenticated %}
+        <h1>Bienvenue sur le blog, {{user.first_name}} !</h1>
+        <form method="POST" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button name="logout">Se déconnecter</button>
+        </form>
+    {% else %}
+        <h1>Bienvenue sur le blog !</h1>
+    {% endif %}
+
+
+    {% for article in articles %}
+        <h2><a href="{% url 'articles_details' article.id %}">{{ article.title }}</a></h2>
+        <p>{{ article.content }}</p>
+        <p>Author: {{ article.author.first_name }}</p>
+        <p>Date: {{ article.publication_date }}</p>
+    {% endfor %}
+</body>
+</html>

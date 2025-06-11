@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Details</title>
+    <style>
+        .error {
+            background-color: red;
+        }
+
+        .success {
+            background-color: green;
+        }
+
+        .info {
+            background-color: blue;
+        }
+
+        .warning {
+            background-color: orange;
+        }
+    </style>
+</head>
+<body>
+    {% if messages %}
+        {% for message in messages %}
+        <p class="{{message.tags}}" style="color: white; padding: 5px; border-radius: 5px;">{{ message }}</p>
+        {% endfor %}
+    {% endif%}
+    
+    <h1>{{ article.title }}</h1>
+    <p>{{ article.content }}</p>
+    <p>Author: {{ article.author.first_name }}</p>
+    <p>Date: {{ article.publication_date }}</p>
+
+    {% if article.image %}
+        <ul>
+            <li>URL: {{ article.image.url }}</li>
+            <li>Name: {{ article.image.name }}</li>
+            <li>Size: {{ article.image.size }} bytes</li>
+            <li>With: {{ article.image.width }}</li>
+            <li>Height: {{ article.image.height }}</li>
+        </ul>
+        <img src="{{ article.image.url }}" alt="Image for {{ artile.title }}" width="500" />
+    {% endif %}
+
+    <h3>Commentaires</h3>
+    {% if comments %}
+        <ul>
+            {% for comment in comments %}
+                <li>{{ comment.content }} ({{ comment.created_at | date:"d-m-Y" }})</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Ajouter un commentaire</button>
+        </form>
+    {% else %}
+        <p>Vous devez être connecté pour ajouter un commentaire.</p>
+    {% endif %}
+</body>
+</html>

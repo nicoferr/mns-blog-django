@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription</title>
+    <style>
+        .error {
+            background-color: red;
+        }
+
+        .success {
+            background-color: green;
+        }
+
+        .info {
+            background-color: blue;
+        }
+
+        .warning {
+            background-color: orange;
+        }
+    </style>
+</head>
+<body>
+    {% if messages %}
+        {% for message in messages %}
+        <p class="{{message.tags}}" style="color: white; padding: 5px; border-radius: 5px;">{{ message }}</p>
+        {% endfor %}
+    {% endif%}
+    
+    <h1>Inscription</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">S'inscrire</button>
+    </form>
+</body>
+</html>
