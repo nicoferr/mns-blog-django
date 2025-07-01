@@ -32,12 +32,16 @@ SECRET_KEY = config('SECRET_KEY') # decouple
 # DEBUG = os.environ.get("DEBUG") == 'True' # dotenv
 DEBUG = config("DEBUG", default=False, cast=bool) # decouple
 
-ALLOWED_HOSTS = ["app", "localhost"]
+# ALLOWED_HOSTS = ["app", "localhost"]
+# ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(' ') # dotenv
+ALLOWED_HOSTS = config('ALLOWED_HOSTS').split(' ') # decouple
 
-CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:8080",
-    "http://127.0.0.1:8080"
-]
+# CSRF_TRUSTED_ORIGINS = [
+#     "http://localhost:8080",
+#     "http://127.0.0.1:8080"
+# ]
+# CSRF_TRUSTED_ORIGINS = os.environ.get('CSRF_TRUSTED_ORIGINS').split(' ') # dotenv
+CSRF_TRUSTED_ORIGINS = config('CSRF_TRUSTED_ORIGINS').split(' ') # decouple
 
 # Application definition
 

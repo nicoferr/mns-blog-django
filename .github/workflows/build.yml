@@ -1,0 +1,10 @@
+name: Build Django App
+
+on: ## déclencheurs
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  
