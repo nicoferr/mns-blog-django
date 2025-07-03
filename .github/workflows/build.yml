@@ -8,6 +8,7 @@ on: ## déclencheurs
 
 env:
   IMAGE_NAME: blog-django-mns
+  TAR_NAME: blog-django-mns.tar
 
 jobs:
   test:
@@ -39,4 +40,5 @@ jobs:
         run: |
           docker build -t $IMAGE_NAME:latest .
 
-      
+      - name: Save Docker image
+        run: docker save $IMAGE_NAME:latest -o $TAR_NAME
